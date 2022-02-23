@@ -1,2 +1,3 @@
-with open("calles_de_medellin_con_acoso.csv") as archivo:
-   listaDeLineasDondeCadaLineaEsUnaCadena = archivo.readlines( )
+import pandas as pd
+archivo = pd.read_csv('calles_de_medellin_con_acoso.csv')
+print(archivo)
