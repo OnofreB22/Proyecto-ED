@@ -23,7 +23,7 @@ for coordenadas in ruta:
 
 #mostrar la ruta
 gmap = gmplot.GoogleMapPlotter(lat[0],lang[0], 15)
-gmap.marker(lat[0], lang[0], color='cornflowerblue')
-gmap.marker(lat[-1], lang[-1], color='cornflowerblue')
+gmap.marker(lat[0], lang[0], color='green')
+gmap.marker(lat[-1], lang[-1], color='red')
 gmap.plot(lat, lang, 'blue', edge_width=2.5)
 gmap.draw('map.html')
