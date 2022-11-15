@@ -7,21 +7,18 @@ df = pd.read_csv('calles_de_medellin_con_acoso.csv')
 #grafo
 g = nx.DiGraph()
 
+#iterar dataframe para agregar nodos y vertices
 for index, row in df.iterrows():
-    if row['oneway'] == 'True':
-        g.add_weighted_edges_from([(row['origin'],row['destination'],row['length']), (row['destiny'],row['origin'])])
-    else:
-        g.add_weighted_edges_from([(row['origin'],row['destination'],row['length'])])
+    g.add_weighted_edges_from([(row['origin'],row['destination'],row['harassmentRisk'])])
 
-#ruta con menos acoso usando el algoritmo Dijkstra
+#calcular ruta con menos acoso usando el algoritmo Dijkstra
 ruta = nx.dijkstra_path(g,'-75.5778046, 6.2029412','-75.6101004, 6.2312125', weight = True)
 
-#distancia mas corta o riesgo de acoso
+#promedio de acoso de la ruta
 valor = 0
-
-for geo in range (len(ruta)-1):
-    condition = df[(df['origin'] == ruta[geo]) & (df['destination'] == ruta[geo+1])].index.values.astype(int)
-    valor = valor + df.iloc[int(condition)]['harassmentRisk']
+for i in range(len(ruta)-1):
+    peso = g[ruta[i]][ruta[i+1]]['weight']
+    valor += peso
 
 print(valor/len(ruta))
 
